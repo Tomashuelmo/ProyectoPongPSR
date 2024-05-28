@@ -14,8 +14,8 @@ public class pong extends ApplicationAdapter {
     private ShapeRenderer shapeRenderer;
 
     // Variables para las paletas y la pelota
-    private Paddle player1, player2;
-    private Ball ball;
+    private Paleta player1, player2;
+    private Pelota ball;
     
     @Override
     public void create () {
@@ -27,11 +27,11 @@ public class pong extends ApplicationAdapter {
         shapeRenderer = new ShapeRenderer();
         
         // Crea las paletas del jugador 1 y jugador 2 en las posiciones especificadas
-        player1 = new Paddle(10, 240);
-        player2 = new Paddle(780, 240);
+        player1 = new Paleta(10, 240);
+        player2 = new Paleta(780, 240);
         
         // Crea la pelota en la posición especificada
-        ball = new Ball(400, 240);
+        ball = new Pelota(400, 240);
     }
 
     @Override
@@ -87,4 +87,3 @@ public class pong extends ApplicationAdapter {
         shapeRenderer.dispose();
     }
 }
-
