@@ -28,8 +28,7 @@ public class Cliente extends Thread {
 
     public EstadoCliente estado = EstadoCliente.ESPERANDO;
     
-    //h
-    //Sirve para prender el cliente
+    //Metodos para prender el cliente
     public Cliente() {
         try {
             socket = new DatagramSocket();
@@ -121,11 +120,11 @@ public class Cliente extends Thread {
             e.printStackTrace();
         }
     }
-
+    // Devuelve si el cliente está conectado al servidor
     public boolean isConectado() {
         return conectado;
     }
-
+    // Finaliza la conexión del cliente y resetea el estado del cliente a esperando
     public void fin() {
         estado = EstadoCliente.ESPERANDO;
     }

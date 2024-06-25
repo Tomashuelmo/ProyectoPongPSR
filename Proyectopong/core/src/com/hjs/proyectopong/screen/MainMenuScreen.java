@@ -24,31 +24,38 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(final Pong game) {
         this.game = game;
+        
+        // Crea una nueva etapa con una vista de pantalla
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
         batch = new SpriteBatch();
         font = new BitmapFont();
-
+        
+        // Define el estilo para los botones de texto
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
         //textButtonStyle.up = new TextureRegionDrawable(new Texture(Gdx.files.internal("button_up.png")));
         //textButtonStyle.down = new TextureRegionDrawable(new Texture(Gdx.files.internal("button_down.png")));
 
-        TextButton playButton = new TextButton("Play", textButtonStyle);
+        
+        // Crea botones para el menú
+        TextButton playButton = new TextButton("Jugar", textButtonStyle);
         TextButton serverButton = new TextButton("Server", textButtonStyle);
-        TextButton quitButton = new TextButton("Quit", textButtonStyle);
+        TextButton quitButton = new TextButton("Salir", textButtonStyle);
 
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
-
+        
+        // Añade botones a la tabla
         table.add(playButton).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
         table.add(serverButton).fillX().uniformX();
         table.row();
         table.add(quitButton).fillX().uniformX();
-
+        
+        // Añade listeners a los botones para manejar eventos de clic
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -79,6 +86,7 @@ public class MainMenuScreen implements Screen {
     }
 
     @Override
+    //limpia la pantalla y lo actualiza 
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -103,6 +111,7 @@ public class MainMenuScreen implements Screen {
     }
 
     @Override
+ // Libera recursos
     public void dispose() {
         stage.dispose();
         font.dispose();

@@ -61,7 +61,7 @@ public class Pelota {
         return bounds;
     }
     
-    //Metodo para actualizar la velocidad de la pelota
+    //Metodo para actualizar la velocidad de la pelota para que vaya aumentando 
     public void updateVelocity(float contador) {
         modifier += contador/10000;
         //xVelocity += contador;

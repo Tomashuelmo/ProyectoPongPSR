@@ -11,7 +11,7 @@ public class Pong extends Game {
     public void create() {
         this.setScreen(new MainMenuScreen(this));
     }
-
+    
     @Override
     public void render() {
         super.render();

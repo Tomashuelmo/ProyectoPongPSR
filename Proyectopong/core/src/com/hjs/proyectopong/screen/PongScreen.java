@@ -35,26 +35,29 @@ public class PongScreen implements PongGame {
         //crea y configura la cámara con un tamaño de 800x480 píxeles
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
-
+        
+        //configura la camara la posiciona centrandola en la pantalla 
         viewport = new FitViewport(800, 480, camera);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+        //incializa el shaperender, el spritebatch, y la bitmapfont
         shapeRenderer = new ShapeRenderer();
         spriteBatch = new SpriteBatch();
         font = new BitmapFont();
 
+        //crea la pelota y las paletas en las posiciones iniciales
         player1 = new Paleta(10, 240);
         player2 = new Paleta(780, 240);
         ball = new Pelota(400, 240, this);
-        //crea la pelota y las paletas en las posiciones iniciales
-
+       
+        //inicia el contador de puntos de los jugadores 
         scorePlayer1 = 0;
         scorePlayer2 = 0; 
-        //inicia el contador de puntos de los jugadores 
+        
     }
 
     @Override
     public void show() {
-        // Se llama cuando esta pantalla se convierte en la pantalla actual de un Juego.
+        
     }
 
     @Override
@@ -70,7 +73,7 @@ public class PongScreen implements PongGame {
             spriteBatch.end();
             return;
         }
-        //Cuando el cliente esta en estado "FIN" muestra un mensaje con el ganador
+        //Cuando el cliente esta en estado "FIN" muestra un mensaje con el ganador y el id
         if (Redes.cliente.estado.equals(Cliente.EstadoCliente.FIN)) {
             System.out.println("GANADOR :" + Redes.ganador);
             game.setScreen(new WinnerScreen(game, Redes.ganador));
@@ -91,9 +94,8 @@ public class PongScreen implements PongGame {
         handleInput();
         updateGame();
         
-        //Crea el marcador y los posiciona en la screen
+        //Crea el marcador y los posiciona en la pantalla
         spriteBatch.begin();
-        font.draw(spriteBatch, "CLIENTE" + scorePlayer1, 450, 700);
         font.draw(spriteBatch, "PLAYER 1: " + scorePlayer1, 300, 700);
         font.draw(spriteBatch, "PLAYER 2: " + scorePlayer2, 700, 700);
         spriteBatch.end();
@@ -128,17 +130,17 @@ public class PongScreen implements PongGame {
 
     @Override
     public void pause() {
-        // Se llama cuando el juego está en pausa.
+  
     }
 
     @Override
     public void resume() {
-        // Se llama cuando el juego se reanuda desde un estado de pausa.
+     
     }
 
     @Override
     public void hide() {
-        // Se llama cuando esta pantalla ya no es la pantalla actual de un Juego.
+    	
     }
 
     @Override

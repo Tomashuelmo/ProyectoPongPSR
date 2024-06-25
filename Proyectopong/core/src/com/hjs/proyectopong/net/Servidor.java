@@ -18,7 +18,7 @@ public class Servidor extends Thread {
     private JugadorRed[] jugadores;
     public boolean iniciaJuego;
 
-    //h
+
     // Esto permite que el servidor prenda
     public Servidor() {
         jugadores = new JugadorRed[maximo];
