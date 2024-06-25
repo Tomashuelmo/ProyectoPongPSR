@@ -108,7 +108,7 @@ public class Cliente extends Thread {
         }
     }
 
-
+    //h
     public void enviarMensaje(String msg) {
         byte[] mensaje = msg.getBytes();
 

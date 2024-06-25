@@ -12,7 +12,6 @@ public class Pelota {
     private float xVelocity = 200; // Velocidad en el eje X
     private float yVelocity = 200; // Velocidad en el eje Y
     private PongGame game; // Referencia a la instancia del juego
-
     public float modifier = 1;
 
     // Constructor que inicializa la pelota en la posición (x, y) y guarda la instancia del juego
@@ -26,17 +25,17 @@ public class Pelota {
         bounds.x += xVelocity * Gdx.graphics.getDeltaTime() * modifier;
         bounds.y += yVelocity * Gdx.graphics.getDeltaTime()* modifier;
 
-        // Rebotar en los límites superior e inferior de la pantalla
+        // Rebota en los límites superior e inferior de la pantalla
         if (bounds.y <= 0 || bounds.y >= 480 - SIZE) {
             yVelocity = -yVelocity;
         }
 
-        // Rebotar en las paletas si hay colisión
+        // Rebota en las paletas si hay colisión
         if (Intersector.overlaps(bounds, p1.getBounds()) || Intersector.overlaps(bounds, p2.getBounds())) {
             xVelocity = -xVelocity;
         }
 
-        // Si la pelota sale de los límites izquierdo o derecho de la pantalla, actualizar el puntaje y reiniciar posición
+        // Si la pelota sale de los límites izquierdo o derecho de la pantalla, actualiza el puntaje y reinicia la posición
         if (bounds.x <= 0) {
             game.addPointToPlayer2();
             resetPosition();
@@ -46,14 +45,14 @@ public class Pelota {
         }
     }
 
-    // Reiniciar la posición de la pelota al centro de la pantalla y cambiar la dirección
+    // Reinicia la posición de la pelota al centro de la pantalla y cambiar la dirección
     private void resetPosition() {
         bounds.x = 400;
         bounds.y = 240;
         xVelocity = -xVelocity; // Cambia la dirección de la pelota para el próximo saque
     }
 
-    // Dibujar la pelota en la pantalla
+    // Dibuja la pelota en la pantalla
     public void draw(ShapeRenderer shapeRenderer) {
         shapeRenderer.rect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
@@ -61,10 +60,11 @@ public class Pelota {
     public Rectangle getBounds() {
         return bounds;
     }
-
+    
+    //Metodo para actualizar la velocidad de la pelota
     public void updateVelocity(float contador) {
         modifier += contador/10000;
         //xVelocity += contador;
-        //yVelocity += contador;
+        //yVelocity += contador;	bug
     }
 }

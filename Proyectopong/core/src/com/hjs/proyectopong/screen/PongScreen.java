@@ -29,8 +29,10 @@ public class PongScreen implements PongGame {
     private FitViewport viewport;
 
     public PongScreen(Pong game) {
-        Redes.empezarCliente();
+        //inicia el cliente de red
+    	Redes.empezarCliente();
         this.game = game;
+        //crea y configura la cámara con un tamaño de 800x480 píxeles
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
@@ -43,19 +45,21 @@ public class PongScreen implements PongGame {
         player1 = new Paleta(10, 240);
         player2 = new Paleta(780, 240);
         ball = new Pelota(400, 240, this);
+        //crea la pelota y las paletas en las posiciones iniciales
 
         scorePlayer1 = 0;
-        scorePlayer2 = 0;
+        scorePlayer2 = 0; 
+        //inicia el contador de puntos de los jugadores 
     }
 
     @Override
     public void show() {
-        // Called when this screen becomes the current screen for a Game.
+        // Se llama cuando esta pantalla se convierte en la pantalla actual de un Juego.
     }
 
     @Override
     public void render(float delta) {
-
+    	// Limpia la pantalla con color negro
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -73,28 +77,32 @@ public class PongScreen implements PongGame {
 
         camera.update();
         shapeRenderer.setProjectionMatrix(camera.combined);
-
+     
+       //Dibuja las paletas y la pelota
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         player1.draw(shapeRenderer);
         player2.draw(shapeRenderer);
         ball.draw(shapeRenderer);
         shapeRenderer.end();
 
+        //Maneja las entradas de usuario (las teclas) y actualiza el estado del juego
         handleInput();
         updateGame();
-
+        
+        //Crea el marcador y los posiciona en la screen
         spriteBatch.begin();
-        font.draw(spriteBatch, "CLIENTE" + scorePlayer1, 450, 460);
-        font.draw(spriteBatch, "PLAYER 1: " + scorePlayer1, 20, 460);
-        font.draw(spriteBatch, "PLAYER 2: " + scorePlayer2, 700, 460);
+        font.draw(spriteBatch, "CLIENTE" + scorePlayer1, 450, 700);
+        font.draw(spriteBatch, "PLAYER 1: " + scorePlayer1, 300, 700);
+        font.draw(spriteBatch, "PLAYER 2: " + scorePlayer2, 700, 700);
         spriteBatch.end();
     }
-
+    //Son las entradas del usuario y mandan el mensaje al servidor si se mueven para arriba(W) o abajo (S)
     private void handleInput() {
         if (Gdx.input.isKeyPressed(Keys.W)) Redes.cliente.enviarMensaje("arriba");
         if (Gdx.input.isKeyPressed(Keys.S)) Redes.cliente.enviarMensaje("abajo");
     }
 
+    //Actualiza el estado del juego 
     private void updateGame() {
         player1.update();
         player2.update();
@@ -111,28 +119,29 @@ public class PongScreen implements PongGame {
 
     @Override
     public void resize(int width, int height) {
-        // Called when the screen size changes.
+        // Se llama cuando cambia el tamaño de la pantalla.
         viewport.update(width, height
         );
     }
 
     @Override
     public void pause() {
-        // Called when the game is paused.
+        // Se llama cuando el juego está en pausa.
     }
 
     @Override
     public void resume() {
-        // Called when the game is resumed from a paused state.
+        // Se llama cuando el juego se reanuda desde un estado de pausa.
     }
 
     @Override
     public void hide() {
-        // Called when this screen is no longer the current screen for a Game.
+        // Se llama cuando esta pantalla ya no es la pantalla actual de un Juego.
     }
 
     @Override
     public void dispose() {
+    	// Libera recursos
         shapeRenderer.dispose();
         spriteBatch.dispose();
         font.dispose();

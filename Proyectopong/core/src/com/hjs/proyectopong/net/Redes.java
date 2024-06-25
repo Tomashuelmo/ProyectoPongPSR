@@ -11,8 +11,10 @@ public abstract class Redes {
     public static int idCliente;
 
 
-    public static void empezarServidor(){
-        if(server == null){
+    public static void empezarServidor() {
+        // Verifica si el servidor es nulo osea si no esta iniciado
+        if (server == null) {
+            // Crea una nueva instancia del servidor
             server = new Servidor();
             server.start();
         }
