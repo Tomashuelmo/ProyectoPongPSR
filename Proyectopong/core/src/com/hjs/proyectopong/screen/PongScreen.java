@@ -62,13 +62,15 @@ public class PongScreen implements PongGame {
     	// Limpia la pantalla con color negro
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        
+        //Cuando el cliente esta en estado "ESPERANDO" muestra un mensaje
         if (Redes.cliente.estado.equals(Cliente.EstadoCliente.ESPERANDO)) {
             spriteBatch.begin();
             font.draw(spriteBatch, "ESPERANDO JUGADORES", 700, 460);
             spriteBatch.end();
             return;
         }
+        //Cuando el cliente esta en estado "FIN" muestra un mensaje con el ganador
         if (Redes.cliente.estado.equals(Cliente.EstadoCliente.FIN)) {
             System.out.println("GANADOR :" + Redes.ganador);
             game.setScreen(new WinnerScreen(game, Redes.ganador));

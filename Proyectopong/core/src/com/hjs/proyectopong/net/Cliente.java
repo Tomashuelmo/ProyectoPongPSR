@@ -27,7 +27,9 @@ public class Cliente extends Thread {
     }
 
     public EstadoCliente estado = EstadoCliente.ESPERANDO;
-
+    
+    //h
+    //Sirve para prender el cliente
     public Cliente() {
         try {
             socket = new DatagramSocket();

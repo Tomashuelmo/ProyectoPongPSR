@@ -19,7 +19,7 @@ public abstract class Redes {
             server.start();
         }
     }
-
+    //Metodo que verifica si existe el cliente, en caso que no lo crea y manda el mensaje conectar, pero si existe manda unicamente "conectar"
     public static void empezarCliente(){
         idCliente = -1;
         ganador = -1;

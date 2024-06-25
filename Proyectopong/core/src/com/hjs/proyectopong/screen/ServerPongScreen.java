@@ -84,12 +84,14 @@ public class ServerPongScreen implements PongGame {
     }
 
     private void updateGame() {
+    	//Se fija si los puntajes son mayores o iguales a 5 para terminar el juego
         if(scorePlayer1 >= 5 || scorePlayer2 >= 5) {
             Redes.server.terminarJuego(scorePlayer1 > scorePlayer2 ? 0 : 1);
             Redes.server.iniciaJuego = false;
             game.setScreen(new ServerPongScreen(game));
             return;
         }
+        //Actualiza a los jugadores y avisa al servidor si el jugador se movio
         player1.update();
         player2.update();
         ball.update(player1, player2);
@@ -99,9 +101,11 @@ public class ServerPongScreen implements PongGame {
         if(player2.isMoving()) {
             Redes.server.enviarMensaje("jugador#1#" + player2.getBounds().y);
         }
+        //Avisa donde esta la pelota
         Redes.server.enviarMensaje("pelota#"+ball.getBounds().x+"#"+ball.getBounds().y);
     }
-
+    
+    //Metodos para avisar al servidor cuanto puntaje tiene el jugador
     public void addPointToPlayer1() {
         scorePlayer1++;
         Redes.server.enviarMensaje("score#0#"+scorePlayer1);

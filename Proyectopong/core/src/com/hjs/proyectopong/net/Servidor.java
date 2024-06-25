@@ -18,11 +18,11 @@ public class Servidor extends Thread {
     private JugadorRed[] jugadores;
     public boolean iniciaJuego;
 
-    // Constructor de la clase Servidor
+    //h
+    // Esto permite que el servidor prenda
     public Servidor() {
         jugadores = new JugadorRed[maximo];
         try {
-            // Inicializa el socket en el puerto especificado
             socket = new DatagramSocket(Redes.puerto);
             System.out.println("Iniciado server");
         } catch (SocketException e) {
@@ -37,22 +37,20 @@ public class Servidor extends Thread {
             byte[] datos = new byte[1024];
             DatagramPacket dp = new DatagramPacket(datos, datos.length);
             try {
-                // Recibe paquetes de datos y los procesa
                 socket.receive(dp);
                 procesarMensaje(dp);
             } catch (IOException e) {
-                // Manejo de excepción vacía, podría ser mejorada
             }
         }
     }
 
-
+    //Procesa los mensajes recibidos como el conectar y los movimientos
     private void procesarMensaje(DatagramPacket dp) {
         String msg = new String(dp.getData()).trim();
         System.out.println("Mensaje " + msg);
         String[] mensajeEvento = msg.split("#");
 
-        // Comprueba si el jugador está conectado, si es jugador 1 o 2 
+        // Comprueba si el jugador está conectado, si es jugador 0 o 1 
         int nroJugador = -1;
         for (int i = 0; i < jugadores.length; i++) {
             if (jugadores[i] == null) continue;
@@ -96,7 +94,7 @@ public class Servidor extends Thread {
         }
     }
 
-
+    //h
     public void enviarMensaje(String msg, InetAddress ipDestino, int puerto) {
         byte[] mensaje = msg.getBytes();
         try {
@@ -123,7 +121,7 @@ public class Servidor extends Thread {
 
 
     public void terminarJuego(int jugadir) {
-        // Envia un mensaje de fin de juego y el id del jugador ganador
+        // Envia el evento de fin de juego y el id del jugador ganador
         enviarMensaje("fin#" + jugadir);
         iniciaJuego = false;
         conectados = 0;
